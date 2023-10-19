@@ -81,15 +81,26 @@ public static class BattleManager
     
     static void Resolve(Unit attacker, Unit target, Attack attack)
     {
-        //calc damage
-        int damage = attack.Damage;
-        
-        //push hitevent
-        HitEvent hitEvent = new(attacker, target, attack, damage);
-        EventQueue.Enqueue(hitEvent); 
-        
-        //apply damage
-        target.Health -= damage;
+        /*
+         *
+         * So long story short
+         *
+         * each attack has a function resolve that returns an Enumerator<BattleEvent>
+         *
+         * loop through that, emit each event created.
+         */
+
+        foreach (BattleEvent e in attack.Resolve(attacker, target))
+        {
+            if (e is HitEvent h)
+            {
+                OnHit?.Invoke(h);
+            }
+            else if (e is DeathEvent d)
+            {
+                OnDeath?.Invoke(d);
+            }
+        }
         
         //death check
         if (target.Health <= 0)
