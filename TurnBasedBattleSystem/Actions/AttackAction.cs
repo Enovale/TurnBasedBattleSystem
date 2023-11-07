@@ -1,4 +1,4 @@
-namespace HackmonBattleSystem.Actions;
+namespace TurnBasedBattleSystem.Actions;
 
 public class AttackAction : BattleAction
 {

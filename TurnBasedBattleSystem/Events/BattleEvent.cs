@@ -1,4 +1,4 @@
-namespace HackmonBattleSystem.Events;
+namespace TurnBasedBattleSystem.Events;
 
 public abstract class BattleEvent : EventArgs
 {

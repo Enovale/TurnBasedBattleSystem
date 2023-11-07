@@ -1,10 +1,9 @@
 using System.Collections;
-using HackmonBattleSystem.Events;
+using TurnBasedBattleSystem.Events;
 
-namespace HackmonBattleSystem;
+namespace TurnBasedBattleSystem;
 
 public interface Attack 
 {
-    public int Damage { get; set; }
     public IEnumerable<BattleEvent> Resolve(Unit attacker, Unit target);
 }

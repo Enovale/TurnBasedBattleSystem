@@ -1,4 +1,4 @@
-namespace HackmonBattleSystem;
+namespace TurnBasedBattleSystem;
 
 public class Team
 {

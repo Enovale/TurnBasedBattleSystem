@@ -1,6 +1,6 @@
 namespace TurnBasedBattleSystem.Events;
 
-public class StartTurnEvent : BattleEvent
-{
+public class OnGainStatus : BattleEvent
+{  
     
 }

@@ -1,4 +1,4 @@
-namespace HackmonBattleSystem.Events;
+namespace TurnBasedBattleSystem.Events;
 
 public class HitEvent : BattleEvent
 {

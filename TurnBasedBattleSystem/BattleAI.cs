@@ -1,6 +1,6 @@
-using HackmonBattleSystem.Actions;
+using TurnBasedBattleSystem.Actions;
 
-namespace HackmonBattleSystem;
+namespace TurnBasedBattleSystem;
 
 public interface BattleAI
 {

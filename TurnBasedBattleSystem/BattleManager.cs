@@ -1,32 +1,39 @@
-using HackmonBattleSystem.Actions;
+using TurnBasedBattleSystem.Actions;
+using TurnBasedBattleSystem.Events;
 
-namespace HackmonBattleSystem;
+namespace TurnBasedBattleSystem;
 
-using HackmonBattleSystem.Events;
+using TurnBasedBattleSystem.Events;
 
 public static class BattleManager
 {
     public static List<Unit> PlayerTeam { get; private set; } = new();
     public static List<Unit> AITeam { get; private set; } = new();
     private static BattleAI EnemyAI = new TestAI();
+    public static bool BattleInProgress = false;
     
     public static Queue<BattleEvent> EventQueue = new();
     public static List<BattleAction> CurrentEnemyActions = new();
 
     public delegate void OnTurnStartListener(StartTurnEvent data);
-    public static event OnTurnStartListener OnTurnStart;
+
+    public static event OnTurnStartListener OnTurnStart = null!;
 
     public delegate void OnHitListener(HitEvent data);
-    public static event OnHitListener OnHit;
+
+    public static event OnHitListener OnHit = null!;
 
     public delegate void OnDeathListener(DeathEvent data);
-    public static event OnDeathListener OnDeath;
+
+    public static event OnDeathListener OnDeath = null!;
 
     public delegate void OnTurnEndListener(EndTurnEvent data);
-    public static event OnTurnEndListener OnTurnEnd;
+
+    public static event OnTurnEndListener OnTurnEnd = null!;
     
     public static void StartBattle(List<Unit> playerUnits, List<Unit> enemyUnits)
     {
+        BattleInProgress = true;
         PlayerTeam = playerUnits;
         AITeam = enemyUnits;
         
@@ -36,6 +43,15 @@ public static class BattleManager
         {
             CurrentEnemyActions.Add(EnemyAI.DoAction(enemy));
         }
+    }
+
+    public static void Cleanup()
+    {
+        BattleInProgress = false;
+        OnTurnStart = null!;
+        OnTurnEnd = null!;
+        OnHit = null!;
+        OnDeath = null!;
     }
     
     /*
@@ -54,6 +70,7 @@ public static class BattleManager
 
     public static void HandlePlayerInput(List<BattleAction> actions)
     {
+        if (!BattleInProgress) throw new Exception();
         List<BattleAction> combinedActions = CurrentEnemyActions.Concat(actions).ToList();
         //TODO: tiebreaking for priority
         combinedActions.Sort(ActionSort);
@@ -92,6 +109,8 @@ public static class BattleManager
 
         foreach (BattleEvent e in attack.Resolve(attacker, target))
         {
+            // Err: Need defined order of operations for certain handlers.
+            // do we tho?    
             if (e is HitEvent h)
             {
                 OnHit?.Invoke(h);

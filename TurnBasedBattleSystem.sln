@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TurnBasedBattleSystem", "TurnBasedBattleSystem\TurnBasedBattleSystem.csproj", "{C1B0C6AD-587B-4564-8125-5F0527E6B80B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleTests", "BattleTests\BattleTests.csproj", "{AB529CF9-1838-4B45-9B93-BA9EA710EA31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{C1B0C6AD-587B-4564-8125-5F0527E6B80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1B0C6AD-587B-4564-8125-5F0527E6B80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1B0C6AD-587B-4564-8125-5F0527E6B80B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB529CF9-1838-4B45-9B93-BA9EA710EA31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB529CF9-1838-4B45-9B93-BA9EA710EA31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB529CF9-1838-4B45-9B93-BA9EA710EA31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB529CF9-1838-4B45-9B93-BA9EA710EA31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
