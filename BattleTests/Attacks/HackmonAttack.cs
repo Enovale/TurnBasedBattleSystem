@@ -7,11 +7,11 @@ namespace BattleTests.Attacks;
 
 public class HackmonAttack : Attack
 {
-    private HackmonMove dataBacking { get; set; }
+    public HackmonMove AttackData { get; set; }
 
-    public HackmonAttack(HackmonMove atkData)
+    public HackmonAttack(HackmonMove atkAttackData)
     {
-        dataBacking = atkData;
+        AttackData = atkAttackData;
     }
     
     public IEnumerable<BattleEvent> Resolve(Unit attacker, Unit target)
@@ -24,15 +24,14 @@ public class HackmonAttack : Attack
     
         HackmonUnit moveUser = (HackmonUnit)attacker;
         HackmonUnit moveTarget = (HackmonUnit)target;
-        
 
-        if (dataBacking.Damage != 0)
+        if (AttackData.Damage != 0)
         {
             var atk = 0;
             var def = 0;
-            var stab = (moveUser.PrimaryType == dataBacking.MoveType) ? 1.25f : 1f;
+            var stab = (moveUser.PrimaryType == AttackData.MoveType) ? 1.25f : 1f;
 
-            switch (dataBacking.AttackType)
+            switch (AttackData.AttackType)
             {
                 case AttackType.None:
                     throw new Exception(
@@ -48,19 +47,25 @@ public class HackmonAttack : Attack
                     break;
             }
 
-            int damage = (int)((dataBacking.Damage * atk + moveUser.Level) / def * stab);
+            int damage = (int)((AttackData.Damage * atk + moveUser.Level) / def * stab);
 
             moveTarget.Health -= damage;
             HitEvent damageEvent = new HitEvent(moveUser, moveTarget, this, damage);
             yield return damageEvent;
         }
 
-        if (dataBacking.TargetStatuses.Count > 0)
+        if (AttackData.TargetStatuses.Count > 0)
         {
-            
+            foreach (string statusName in AttackData.TargetStatuses)
+            {
+                var status = HackmonManager.InstanceStatus(statusName, (HackmonUnit)target, 1);
+                var sEvent = new GainStatusEvent(target, status, 1);
+
+                yield return sEvent;
+            }
         }
 
-        if (dataBacking.UserStatuses.Count > 0)
+        if (AttackData.UserStatuses.Count > 0)
         {
             
         }

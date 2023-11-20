@@ -5,6 +5,7 @@ namespace BattleTests;
 public abstract class HackmonStatus : Status
 {
     public int RemainingTurns { get; set; }
+    public string Name { get; set; }
     
     public HackmonStatus(Unit owner, int turns) : base(owner)
     {

@@ -3,18 +3,14 @@ using TurnBasedBattleSystem.Events;
 
 namespace TurnBasedBattleSystem;
 
-using TurnBasedBattleSystem.Events;
-
 public static class BattleManager
 {
     public static List<Unit> PlayerTeam { get; private set; } = new();
     public static List<Unit> AITeam { get; private set; } = new();
-    private static BattleAI EnemyAI = new TestAI();
+    public static BattleAI EnemyAI = new TestAI();
     public static bool BattleInProgress = false;
-    
-    public static Queue<BattleEvent> EventQueue = new();
     public static List<BattleAction> CurrentEnemyActions = new();
-
+    
     public delegate void OnTurnStartListener(StartTurnEvent data);
 
     public static event OnTurnStartListener OnTurnStart = null!;
@@ -26,6 +22,10 @@ public static class BattleManager
     public delegate void OnDeathListener(DeathEvent data);
 
     public static event OnDeathListener OnDeath = null!;
+
+    public delegate void OnGainStatusListener(GainStatusEvent data);
+
+    public static event OnGainStatusListener OnGainStatus = null!;
 
     public delegate void OnTurnEndListener(EndTurnEvent data);
 
@@ -119,6 +119,10 @@ public static class BattleManager
             {
                 OnDeath?.Invoke(d);
             }
+            else if (e is GainStatusEvent s)
+            {
+               OnGainStatus?.Invoke(s); 
+            }
         }
         
         //death check
@@ -126,7 +130,7 @@ public static class BattleManager
         {
             //push death event.
             DeathEvent ded = new(target);
-            EventQueue.Enqueue(ded);
+            OnDeath?.Invoke(ded);
         }
     }
 }

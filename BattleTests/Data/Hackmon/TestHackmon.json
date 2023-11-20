@@ -1,4 +1,5 @@
 ﻿{
+  "Name": "TestHackmon",
   "PrimaryType": "Basic",
   "Family": "Construct",
   "MaxHp": {

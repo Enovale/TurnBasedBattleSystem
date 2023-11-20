@@ -5,6 +5,7 @@ namespace BattleTests;
 
 public class HackmonData
 {
+    public string Name { get; set; }
     public HackmonType PrimaryType { get; set; }
     public HackmonType? SecondaryType { get; set; }
     public HackmonFamily Family { get; set; }

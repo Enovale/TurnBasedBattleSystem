@@ -8,5 +8,5 @@
   "Target": "Single",
   "StaminaCost": 20,
   "UserStatuses" : [],
-  "TargetStatuses": ["Poison"]
+  "TargetStatuses": ["TestStatus"]
 }
