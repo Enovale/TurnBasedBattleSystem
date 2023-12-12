@@ -1,9 +1,9 @@
 namespace TurnBasedBattleSystem;
 
-public interface Unit
+public interface IUnit
 {
     public int Health { get; set; }
     public int Speed { get; set; }
 
-    public List<Status> Statuses { get; set; }
+    public List<IStatus> Statuses { get; set; }
 }

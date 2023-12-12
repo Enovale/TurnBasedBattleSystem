@@ -3,10 +3,10 @@ using TurnBasedBattleSystem.Events;
 
 namespace TurnBasedBattleSystem.Attacks;
 
-public class TestAttack : Attack
+public class TestAttack : IAttack
 {
     public int Damage { get; set; } = 5;
-    public IEnumerable<BattleEvent> Resolve(Unit attacker, Unit target)
+    public IEnumerable<BattleEvent> Resolve(IUnit attacker, IUnit target)
     {
         attacker.Health -= Damage;
 

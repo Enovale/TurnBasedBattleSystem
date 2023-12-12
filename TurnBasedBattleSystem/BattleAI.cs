@@ -4,5 +4,5 @@ namespace TurnBasedBattleSystem;
 
 public interface BattleAI
 {
-    public BattleAction DoAction(Unit actor);
+    public BattleAction DoAction(IUnit actor);
 }

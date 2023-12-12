@@ -5,8 +5,8 @@ namespace TurnBasedBattleSystem;
 
 public static class BattleManager
 {
-    public static List<Unit> PlayerTeam { get; private set; } = new();
-    public static List<Unit> AITeam { get; private set; } = new();
+    public static List<IUnit> PlayerTeam { get; private set; } = new();
+    public static List<IUnit> AITeam { get; private set; } = new();
     public static BattleAI EnemyAI = new TestAI();
     public static bool BattleInProgress = false;
     public static List<BattleAction> CurrentEnemyActions = new();
@@ -31,7 +31,7 @@ public static class BattleManager
 
     public static event OnTurnEndListener OnTurnEnd = null!;
     
-    public static void StartBattle(List<Unit> playerUnits, List<Unit> enemyUnits)
+    public static void StartBattle(List<IUnit> playerUnits, List<IUnit> enemyUnits)
     {
         BattleInProgress = true;
         PlayerTeam = playerUnits;
@@ -39,7 +39,7 @@ public static class BattleManager
         
         OnTurnStart?.Invoke(new StartTurnEvent());
 
-        foreach (Unit enemy in AITeam)
+        foreach (IUnit enemy in AITeam)
         {
             CurrentEnemyActions.Add(EnemyAI.DoAction(enemy));
         }
@@ -96,7 +96,7 @@ public static class BattleManager
         }
     }
     
-    static void Resolve(Unit attacker, Unit target, Attack attack)
+    static void Resolve(IUnit attacker, IUnit target, IAttack attack)
     {
         /*
          *

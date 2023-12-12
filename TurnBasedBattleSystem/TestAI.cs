@@ -4,7 +4,7 @@ namespace TurnBasedBattleSystem;
 
 public class TestAI : BattleAI
 {
-    public BattleAction DoAction(Unit actor)
+    public BattleAction DoAction(IUnit actor)
     {
         throw new NotImplementedException();
     }
