@@ -10,25 +10,20 @@ public static class BattleManager
     public static BattleAI EnemyAI = new TestAI();
     public static bool BattleInProgress = false;
     public static List<BattleAction> CurrentEnemyActions = new();
-    
-    public delegate void OnTurnStartListener(StartTurnEvent data);
 
+    public delegate void OnTurnStartListener(StartTurnEvent data);
     public static event OnTurnStartListener OnTurnStart = null!;
 
     public delegate void OnHitListener(HitEvent data);
-
     public static event OnHitListener OnHit = null!;
 
     public delegate void OnDeathListener(DeathEvent data);
-
     public static event OnDeathListener OnDeath = null!;
 
     public delegate void OnGainStatusListener(GainStatusEvent data);
-
     public static event OnGainStatusListener OnGainStatus = null!;
 
     public delegate void OnTurnEndListener(EndTurnEvent data);
-
     public static event OnTurnEndListener OnTurnEnd = null!;
     
     public static void StartBattle(List<IUnit> playerUnits, List<IUnit> enemyUnits)
