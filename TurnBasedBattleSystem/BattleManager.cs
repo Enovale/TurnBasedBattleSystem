@@ -5,31 +5,31 @@ namespace TurnBasedBattleSystem;
 
 public static class BattleManager
 {
-	public delegate void OnDeathListener(DeathEvent data);
-
-	public delegate void OnGainStatusListener(GainStatusEvent data);
-
-	public delegate void OnHitListener(HitEvent data);
-
-	public delegate void OnTurnEndListener(EndTurnEvent data);
-
-	public delegate void OnTurnStartListener(StartTurnEvent data);
-
-	public static IBattleAI EnemyAi = new TestAI();
-	public static bool BattleInProgress;
-	public static readonly List<IBattleAction> CurrentEnemyActions = [];
-	public static List<IUnit> PlayerTeam { get; private set; } = [];
-	public static List<IUnit> AiTeam { get; private set; } = [];
-
-	public static event OnTurnStartListener? OnTurnStart;
-
-	public static event OnHitListener? OnHit;
-
 	public static event OnDeathListener? OnDeath;
+
+	public delegate void OnDeathListener(DeathEvent data);
 
 	public static event OnGainStatusListener? OnGainStatus;
 
+	public delegate void OnGainStatusListener(GainStatusEvent data);
+
+	public static event OnHitListener? OnHit;
+
+	public delegate void OnHitListener(HitEvent data);
+
 	public static event OnTurnEndListener? OnTurnEnd;
+
+	public delegate void OnTurnEndListener(EndTurnEvent data);
+
+	public static event OnTurnStartListener? OnTurnStart;
+
+	public delegate void OnTurnStartListener(StartTurnEvent data);
+
+	public static readonly List<IBattleAction> CurrentEnemyActions = [];
+	public static bool BattleInProgress;
+	public static IBattleAI EnemyAi = new TestAI();
+	public static List<IUnit> PlayerTeam { get; private set; } = [];
+	public static List<IUnit> AiTeam { get; private set; } = [];
 
 	public static void StartBattle(List<IUnit> playerUnits, List<IUnit> enemyUnits)
 	{
@@ -105,7 +105,6 @@ public static class BattleManager
 		 * loop through that, emit each event created.
 		 */
 		foreach (var e in attack.Resolve(attacker, target))
-		{
 			switch (e)
 			{
 				// Err: Need defined order of operations for certain handlers.
@@ -120,7 +119,6 @@ public static class BattleManager
 					OnGainStatus?.Invoke(s);
 					break;
 			}
-		}
 
 		//death check
 		if (target.Health <= 0)
